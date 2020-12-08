@@ -1,5 +1,15 @@
 
 map <-rgdal::readOGR(dsn="C://Users//kxr170000//Documents//R//DV", layer="seoul_acc_2018", integer64="warn.loss", encoding = )
+map <- map[ -c(1,4,6,8:9,11) ]
+  colnames(map@data)[2] = "Potential population"
+  colnames(map@data)[3] = "Spatial accessibility"
+  colnames(map@data)[4] = "AI"
+  colnames(map@data)[5] = "EldRatio"
+  colnames(map@data)[6] = "SRI"
+  colnames(map@data)[7] = "PopDens"
+  colnames(map@data)[8] = "HPI"
+  map_vars <- names(map)
+
 
 ui <- fluidPage(
   titlePanel("Health Map"),
@@ -18,16 +28,7 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  map <- map[ -c(1,4,6,8:9,11) ]
-  colnames(map@data)[2] = "Potential population"
-  colnames(map@data)[3] = "Spatial accessibility"
-  colnames(map@data)[4] = "AI"
-  colnames(map@data)[5] = "EldRatio"
-  colnames(map@data)[6] = "SRI"
-  colnames(map@data)[7] = "PopDens"
-  colnames(map@data)[8] = "HPI"
-  map_vars <- names(map)
-  
+    
   output$map <- renderTmap({
     tm_shape(map) +
       tm_polygons(map_vars[1], zindex = 401)
