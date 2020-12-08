@@ -1,3 +1,4 @@
+library(shiny); library(tmap)
 
 map <-rgdal::readOGR(dsn="C://Users//kxr170000//Documents//R//DV", layer="seoul_acc_2018", integer64="warn.loss", encoding = )
 map <- map[ -c(1,4,6,8:9,11) ]
@@ -9,7 +10,6 @@ map <- map[ -c(1,4,6,8:9,11) ]
   colnames(map@data)[7] = "PopDens"
   colnames(map@data)[8] = "HPI"
   map_vars <- names(map)
-
 
 ui <- fluidPage(
   titlePanel("Health Map"),
